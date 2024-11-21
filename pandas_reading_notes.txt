@@ -1,0 +1,28 @@
+arr = [-70, -64, -6, -56, 64,
+       61, -57, 16, 48, -98] 
+len(arr) = 10
+
+abs
+-70 - -70 = 0
+-70 - -64 = 6
+-70 - -6 = 64
+-70 - -56 = 14
+ ...
+-64 - -64 = 0
+-64 - -6 = -58
+...at
+-98 - -98 = 0
+
+maxDist = 167 = 162 + 5 
+
+max distance betewwenn  2 els of array: abs(a-b)
+natoms = 5
+from j to 5-i
+i=2 => natoms = 5-2=3 => 
+an array has 5 elements number 0 to 4
+we want to go from positon i to the end of the array
+i is 2 so in arr of length 5 end is el 4 (in our case end is alway el 275) 
+so range(i, end of arr) endofarr = (arr.length()-1)-i = 4-2 (in our case arr.length()=275 so 275-i
+0 1 2 3 4
+275-i-1 = 274-i
+when you do range (i, 275-i) 275-i = 275-i-1

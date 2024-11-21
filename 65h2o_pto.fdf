@@ -1,0 +1,160 @@
+SystemName	Lead titanate (PbTiO3) 
+SystemLabel	pbtio3
+NumberOfSpecies	4
+NumberOfAtoms	275
+%block ChemicalSpeciesLabel
+      1      82     Pb
+      2      22     Ti
+      3       8     O
+      4       1     H
+%endblock ChemicalSpeciesLabel
+
+SpinPolarized           .false.
+
+PAO.BasisType    split 
+%block PAO.Basis
+Pb   5      0.06833
+ n=6   0   2   E     7.21168     4.15132
+     6.45512     3.51651
+     1.00000     1.00000
+ n=6   1   2   E   123.44683     5.19406
+     6.45354     4.40993
+     1.00000     1.00000
+ n=5   2   1   E    11.46595     2.86572
+     5.48278
+     1.00000
+ n=6   2   1   E     7.43768     4.76779
+     6.49984
+     1.00000
+ n=5   3   1   E     1.66932     3.17057
+     5.91487
+     1.00000
+Ti   5      1.91000
+ n=3   0   1   E    93.95000     5.20000
+     5.69947
+     1.00000
+ n=4   0   2   E    96.47000     5.60000
+     6.09996     5.09944
+     1.00000     1.00000
+ n=3   1   1   E    95.47000     5.20000
+     5.69941
+     1.00000
+ n=4   1   1   E     0.50000     1.77000
+     3.05366
+     1.00000
+ n=3   2   2   E    46.05000     4.95000
+     5.94327     4.70010
+     1.00000     1.00000
+#new dzpq8.5 basis
+O 3
+n=2 0 2 E 50. 7.5
+    8.0 2.7
+n=2 1 2 E 10. 8.3
+    8.5 2.6
+n=3 2 1 E 40. 8.3 Q 6.8 0.22
+    8.5
+H 2
+n=1 0 2 E 50. 8.3
+    8.5 2.2
+n=2 1 1 E 20. 7.8 Q 6.5 0.9
+    8.0
+#old basis
+#O    3     -0.28000
+# n=2   0   2   E    40.58000     3.95000
+#     4.95272     3.60331
+#     1.00000     1.00000
+# n=2   1   2   E    36.78000     4.35000
+#     4.99990     3.89745
+#     1.00000     1.00000
+# n=3   2   1   E    21.69000     0.93000
+#     2.73277
+#     1.00000
+#H    2      0.46527
+#n=1   0   2   E    99.93138     2.59932
+#     4.20357     1.84463
+#     1.00000     1.00000
+#n=2   1   1   E    24.56504     2.20231
+#     3.52816
+#     1.00000
+%EndBlock PAO.Basis
+
+
+#%block XC.hybrid
+#	2
+#VDW DRSLL 0.0 1.0
+#GGA PBE 1.0 0.0
+#%endblock XC.hybrid
+#XC.functional   GGA
+#XC.authors      PBE
+XC.functional   VDW
+XC.authors      BH
+
+#initial lattice vectors and relaxed coordinates are from
+#Judith's folder: /Perovskites/pbtio3/constr_min/pbtio3.out
+#which is the relaxed coord from LDA and CA (PZ).
+LatticeConstant     1.0 Ang
+%block LatticeVectors
+  11.087434329    0.0000000000   0.000000
+  0.0000000000    11.087434329   0.000000
+  0.0000000000    0.0000000000  27.202644
+%endblock LatticeVectors
+
+AtomicCoordinatesFormat             <system_xyz.fdf
+AtomicCoordinatesAndAtomicSpecies   <system_xyz.fdf
+
+#keep slab constrained move water only
+%block GeometryConstraints
+position from -196 to -275
+%endblock GeometryConstraints
+
+#%block SuperCell
+#  1.00  1.00  0.00
+#  1.00 1.00  0.00
+#  0.00  0.00  2.00	
+#%endblock SuperCell
+
+#%block kgrid_Monkhorst_Pack
+#    6   0   0  0.5
+#    0   6   0  0.5
+#    0   0   1  0.5
+#%endblock kgrid_Monkhorst_Pack
+
+UseSaveData  .true.
+MeshCutoff             400 Ry
+DM.NumberPulay         3
+DM.UseSaveDM           .true.
+DM.MixingWeight        0.020   #0.0050      # New DM amount for next SCF cycle
+DM.Tolerance           1.d-4       # Tolerance in maximum difference
+                                   # between input and output DM
+#DM.NumberKick          15
+#DM.KickMixingWeight    1.000
+ElectronicTemperature  100 K
+MaxSCFIterations       400
+SCFMustConverge        .true.
+#DM.MixSCF1             .true.
+#SlabDipoleCorrection   .true.	#dipole correction for the slab with vacuum
+#ForceAuxCell .true.
+
+# Type of dynamics:
+MD.TypeOfRun          Anneal        
+MD.AnnealOption       Temperature
+MD.TargetTemperature  330 K
+MD.LengthTimeStep     0.5 fs
+MD.InitialTimeStep    1
+MD.FinalTimeStep      250
+#MD.TypeOfRun           CG
+#MD.NumCGsteps          200
+#MD.MaxForceTol         0.01 eV/Ang
+#MD.VariableCell        .false.
+#MD.UseSaveCG           .true.
+#MD.MaxStressTol        0.1 GPa
+MD.UseSaveXV           .true.
+
+SaveElectrostaticPotential      .true.
+SaveTotalCharge                 .true.
+WriteCoorStep      .true.
+WriteForces        .true.
+WriteMDXmol        .true. 
+WriteCoorXmol
+WriteMDHistory
+#LongOutput

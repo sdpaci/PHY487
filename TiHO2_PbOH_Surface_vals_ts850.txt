@@ -1,0 +1,53 @@
+TiHO2/PbOH Surface vals
+for ts 850
+TI False: PbTiO3 labeled false
+234380
+234381
+234395
+234370
+
+H nan: not work
+234460
+234438
+234460
+234516
+234535
+234537
+234561
+
+O nan: Not finding Ti's or Pb's
+234458
+234437
+234515
+234533
+234536
+234560
+
+H True: not work
+234439
+234505
+234510
+234532
+234543
+234586
+
+O False: not work
+234371
+234367
+
+O True: works properly all conditons met
+234363
+234358
+234353
+234348
+234338
+234343
+234333
+
+Pb False: PbTiO3 labeled false
+234359
+234354
+234339
+234334
+234329
+234324

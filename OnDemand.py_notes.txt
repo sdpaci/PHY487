@@ -1,0 +1,50 @@
+# read file into a DataFrame and select val at [0][0]
+natoms = pd.read_table(file, header=None, delim_whitespace=True, nrows=1)[0][0]
+This reads a delimited table specifies that there is no header, that the cols are delimited by whitespace
+ and only reads the first row then read the first row first col element of the dataframe
+
+drop_list = [0, 1]
+df = pd.read_table(file, header=None, skiprows=drop_list, delim_whitespace=True)
+This reads all the other rows except for the first two rows
+
+df = df.dropna()
+this drops all NaNs
+df.columns = ['ATOM', 'X', 'Y', 'Z']
+Renames column names
+
+df['STEP'] = df.reset_index().index // natoms + 1
+1. df.reset_index().index : This part resets the index of the DataFrame df, creating a new index starting from 0.
+Then, .index retrieves the values of this new index.
+2. // natoms : The double slash (//) performs integer division, dividing each value of the reset index by natoms.
+3. + 1 : Finally, 1 is added to the result of the division.
+
+
+nan_value = float("NaN")
+df['Molecule'] = nan_value
+These lines create new columns and fill them with NaN values
+
+
+def search_multiple_strings_in_file(file_name, list_of_strings):
+This method gets lines form the file and the line number if the lines contain any of the strings in the list passed to it.
+it does this by reading all the lines in the file one by one and checking if the string is in the line.
+It returns a list of tuples containing the string, line number, and line.
+
+def extract_lines_between_two_lines(file_name, start_of_block, end_of_block):
+In the files to be processed in this program there is info within blocks starting and ending with certain character,
+so this method looks for those block delimiters and gets the info in the block.
+reads the lines inside the delimiters.
+by  incrementing the line number each time we assure that it is in the range of the block; the range of that block is determined from
+the starting and ending line numbers likely found by the search_multiple_strings_in_file() method
+it will iterate over all lines in the file until it has a match for the line numbers of the block, then it will copy the line and split it on whitespaces
+and append it a list and return the list
+
+
+The next section searches the file for Chemical Species label block and extract the species info. from the rows inside the block headers.
+first it finds the file, passses the block delimiters to the search_multi[ple strings, prints the result, gets the lines in between the block header
+line numbers by passing them to extract_lines_between_two_lines(). Then it puts the block in a dataframe and prints the contents.
+
+It repeats this for another block containing a different kind of information (the bc_block_lines). Values from these lines are saved as floating 
+point coordinates in x,y,z.
+
+These coordinates are used in the boudary_conditions() function to implement periodic boundary conditions. It takes in a list of x, y, and z
+euclidean distances and returns list with boundary conditions applied. 
