@@ -1,0 +1,6 @@
+[submodule "c/users/steve/pycharmprojects/487_pycharm_projects"]
+	path = c/users/steve/pycharmprojects/487_pycharm_projects
+	url = https://github.com/sdpaci/PHY487-research-master.git
+[submodule "pycharmprojects/research-master"]
+	path = pycharmprojects/research-master
+	url = https://github.com/sdpaci/PHY487-research-master.git
